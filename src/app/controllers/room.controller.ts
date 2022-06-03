@@ -1,77 +1,89 @@
 import { BaseController } from 'app/controllers';
 import { RoomModel } from 'app/models';
+import { ApiErrorHandler } from 'app/helpers';
+import httpStatus from 'http-status';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export class RoomController extends BaseController {
-  async getAllRooms(req: NextApiRequest, res: NextApiResponse) {
+  async getAllRooms(
+    _: NextApiRequest,
+    res: NextApiResponse,
+    next: (args: ApiErrorHandler) => any,
+  ) {
     try {
       const rooms = await RoomModel.find();
 
-      res.status(200);
+      res.status(httpStatus.OK);
       res.json({
-        statusCode: 'SUCCESS',
         data: rooms,
       });
     } catch (error) {
-      console.error((error as Error).message);
-
-      res.status(400);
-      res.json({
-        statusCode: 'ERROR',
-        message: (error as Error).message,
-      });
+      return next(
+        new ApiErrorHandler({
+          statusCode: httpStatus.BAD_REQUEST,
+          message: (error as Error).message,
+        }),
+      );
     }
   }
 
-  async getRoomDetail({ query }: NextApiRequest, res: NextApiResponse) {
+  async getRoomDetail(
+    { query }: NextApiRequest,
+    res: NextApiResponse,
+    next: (args: ApiErrorHandler) => any,
+  ) {
     try {
       const room = await RoomModel.findById(query.id);
       if (!room) {
-        res.status(404);
-        res.json({
-          statusCode: 'NOT_FOUND',
-          message: 'Room not found with this ID',
-        });
-        return;
+        return next(
+          new ApiErrorHandler({
+            statusCode: httpStatus.NOT_FOUND,
+            message: 'Room not found with this ID',
+          }),
+        );
       }
 
-      res.status(200);
+      res.status(httpStatus.OK);
       res.json({
-        statusCode: 'SUCCESS',
         data: room,
       });
     } catch (error) {
-      console.error((error as Error).message);
-
-      res.status(400);
-      res.json({
-        statusCode: 'ERROR',
-        message: (error as Error).message,
-      });
+      return next(
+        new ApiErrorHandler({
+          statusCode: httpStatus.BAD_REQUEST,
+          message: (error as Error).message,
+        }),
+      );
     }
   }
 
-  async createNewRoom({ body }: NextApiRequest, res: NextApiResponse) {
+  async createNewRoom(
+    { body }: NextApiRequest,
+    res: NextApiResponse,
+    next: (args: ApiErrorHandler) => any,
+  ) {
     try {
       const room = await RoomModel.create(body);
 
-      res.status(200);
+      res.status(httpStatus.CREATED);
       res.json({
-        statusCode: 'SUCCESS',
         data: room,
       });
     } catch (error) {
-      console.error((error as Error).message);
-
-      res.status(400);
-      res.json({
-        statusCode: 'ERROR',
-        message: (error as Error).message,
-      });
+      return next(
+        new ApiErrorHandler({
+          statusCode: httpStatus.BAD_REQUEST,
+          message: (error as Error).message,
+        }),
+      );
     }
   }
 
-  async updateRoom({ body, query }: NextApiRequest, res: NextApiResponse) {
+  async updateRoom(
+    { body, query }: NextApiRequest,
+    res: NextApiResponse,
+    next: (arg: ApiErrorHandler) => any,
+  ) {
     try {
       const room = await RoomModel.findByIdAndUpdate(query.id, body, {
         new: true,
@@ -79,57 +91,55 @@ export class RoomController extends BaseController {
       });
 
       if (!room) {
-        res.status(404);
-        res.json({
-          statusCode: 'NOT_FOUND',
-          message: 'Room not found with this ID',
-        });
-        return;
+        return next(
+          new ApiErrorHandler({
+            statusCode: httpStatus.NOT_FOUND,
+            message: 'Room not found with this ID',
+          }),
+        );
       }
 
-      res.status(200);
+      res.status(httpStatus.OK);
       res.json({
-        statusCode: 'SUCCESS',
         data: room,
       });
     } catch (error) {
-      console.error((error as Error).message);
-
-      res.status(400);
-      res.json({
-        statusCode: 'ERROR',
-        message: (error as Error).message,
-      });
+      return next(
+        new ApiErrorHandler({
+          statusCode: httpStatus.BAD_REQUEST,
+          message: (error as Error).message,
+        }),
+      );
     }
   }
 
-  async destroyRoom({ query }: NextApiRequest, res: NextApiResponse) {
+  async destroyRoom(
+    { query }: NextApiRequest,
+    res: NextApiResponse,
+    next: (args: ApiErrorHandler) => any,
+  ) {
     try {
       const room = await RoomModel.findById(query.id);
 
       if (!room) {
-        res.status(404);
-        res.json({
-          statusCode: 'NOT_FOUND',
-          message: 'Room not found with this ID',
-        });
-        return;
+        return next(
+          new ApiErrorHandler({
+            statusCode: httpStatus.NOT_FOUND,
+            message: 'Room not found with this ID',
+          }),
+        );
       }
 
       await room.remove();
 
-      res.status(200);
-      res.json({
-        statusCode: 'SUCCESS',
-      });
+      res.status(httpStatus.NO_CONTENT).end();
     } catch (error) {
-      console.error((error as Error).message);
-
-      res.status(400);
-      res.json({
-        statusCode: 'ERROR',
-        message: (error as Error).message,
-      });
+      return next(
+        new ApiErrorHandler({
+          statusCode: httpStatus.BAD_REQUEST,
+          message: (error as Error).message,
+        }),
+      );
     }
   }
 }
