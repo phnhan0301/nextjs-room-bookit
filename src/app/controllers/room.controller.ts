@@ -4,11 +4,23 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export class RoomController extends BaseController {
   async getAllRooms(req: NextApiRequest, res: NextApiResponse) {
-    res.status(200);
-    res.json({
-      statusCode: 'SUCCESS',
-      message: 'Get all rooms',
-    });
+    try {
+      const rooms = await RoomModel.find();
+
+      res.status(200);
+      res.json({
+        statusCode: 'SUCCESS',
+        data: rooms,
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+
+      res.status(400);
+      res.json({
+        statusCode: 'ERROR',
+        message: (error as Error).message,
+      });
+    }
   }
 
   async createNewRoom({ body }: NextApiRequest, res: NextApiResponse) {
