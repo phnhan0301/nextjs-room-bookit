@@ -31,7 +31,6 @@ export class RoomController extends BaseController {
         res.json({
           statusCode: 'NOT_FOUND',
           message: 'Room not found with this ID',
-          data: null,
         });
         return;
       }
@@ -74,20 +73,9 @@ export class RoomController extends BaseController {
 
   async updateRoom({ body, query }: NextApiRequest, res: NextApiResponse) {
     try {
-      //   const room = await RoomModel.findById(query.id);
-      //   if (!room) {
-      //     res.status(404);
-      //     res.json({
-      //       statusCode: 'NOT_FOUND',
-      //       message: 'Room not found with this ID',
-      //       data: null,
-      //     });
-      //     return;
-      //   }
-
       const room = await RoomModel.findByIdAndUpdate(query.id, body, {
-          new: true,
-          runValidators: true,
+        new: true,
+        runValidators: true,
       });
 
       if (!room) {
@@ -95,7 +83,6 @@ export class RoomController extends BaseController {
         res.json({
           statusCode: 'NOT_FOUND',
           message: 'Room not found with this ID',
-          data: null,
         });
         return;
       }
@@ -104,6 +91,36 @@ export class RoomController extends BaseController {
       res.json({
         statusCode: 'SUCCESS',
         data: room,
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+
+      res.status(400);
+      res.json({
+        statusCode: 'ERROR',
+        message: (error as Error).message,
+      });
+    }
+  }
+
+  async destroyRoom({ query }: NextApiRequest, res: NextApiResponse) {
+    try {
+      const room = await RoomModel.findById(query.id);
+
+      if (!room) {
+        res.status(404);
+        res.json({
+          statusCode: 'NOT_FOUND',
+          message: 'Room not found with this ID',
+        });
+        return;
+      }
+
+      await room.remove();
+
+      res.status(200);
+      res.json({
+        statusCode: 'SUCCESS',
       });
     } catch (error) {
       console.error((error as Error).message);

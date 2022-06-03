@@ -14,5 +14,6 @@ const handler = nextConnect({
 
 handler.get(roomController.getRoomDetail);
 handler.put(roomController.updateRoom);
+handler.delete(roomController.destroyRoom);
 
 export default handler;
