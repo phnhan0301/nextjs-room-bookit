@@ -7,12 +7,11 @@ class DbConnection {
         return;
       }
 
-      const dbUri = (process.env.DB_URI + '')
-        .replace('{DB_USER}', process.env.DB_USER + '')
-        .replace('{DB_PASS}', process.env.DB_PASS + '');
+      const dbUri = process.env.DB_URI + '';
       const dbOpts: ConnectOptions = {
         waitQueueTimeoutMS: 2500,
         wtimeoutMS: 2500,
+        dbName: process.env.DB_NAME,
       };
 
       await mongoose.connect(dbUri, dbOpts);

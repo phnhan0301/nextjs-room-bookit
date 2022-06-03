@@ -23,6 +23,35 @@ export class RoomController extends BaseController {
     }
   }
 
+  async getRoomDetail({ query }: NextApiRequest, res: NextApiResponse) {
+    try {
+      const room = await RoomModel.findById(query.id);
+      if (!room) {
+        res.status(404);
+        res.json({
+          statusCode: 'NOT_FOUND',
+          message: 'Room not found with this ID',
+          data: null,
+        });
+        return;
+      }
+
+      res.status(200);
+      res.json({
+        statusCode: 'SUCCESS',
+        data: room,
+      });
+    } catch (error) {
+      console.error((error as Error).message);
+
+      res.status(400);
+      res.json({
+        statusCode: 'ERROR',
+        message: (error as Error).message,
+      });
+    }
+  }
+
   async createNewRoom({ body }: NextApiRequest, res: NextApiResponse) {
     try {
       const room = await RoomModel.create(body);
