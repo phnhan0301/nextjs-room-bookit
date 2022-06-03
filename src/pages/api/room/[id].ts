@@ -13,5 +13,6 @@ const handler = nextConnect({
 });
 
 handler.get(roomController.getRoomDetail);
+handler.put(roomController.updateRoom);
 
 export default handler;
