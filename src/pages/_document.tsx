@@ -34,8 +34,6 @@ const MyDocument: NextPage<{ language: string }> = ({ language }) => {
 };
 
 export const getInitialProps = async (ctx: DocumentContext) => {
-  new DbConnect().connect();
-
   const originalRenderPage = ctx.renderPage;
 
   // Run the React rendering logic synchronously

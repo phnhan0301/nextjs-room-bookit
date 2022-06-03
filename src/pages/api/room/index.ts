@@ -12,6 +12,7 @@ const handler = nextConnect({
   },
 });
 
-handler.get(roomController.getAllRoom);
+handler.get(roomController.getAllRooms);
+handler.post(roomController.createNewRoom);
 
 export default handler;
