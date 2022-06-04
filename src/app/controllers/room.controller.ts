@@ -3,30 +3,16 @@ import { RoomModel } from 'app/models';
 import { ApiErrorHandler, catchAsyncError } from 'app/helpers';
 import httpStatus from 'http-status';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Query } from 'mongoose';
+import RoomApiHelper from 'app/helpers/roomApiHelper';
 
 export class RoomController extends BaseController {
-  private async search(
-    query: Query<any[], any, {}, any>,
-    queryStr: { [x: string]: string | string[]; location?: any },
-  ) {
-    const location = queryStr.location
-      ? {
-          address: {
-            $regex: queryStr.location,
-            $options: 'i',
-          },
-        }
-      : {};
-
-    return await query.find({
-      ...location,
-    });
-  }
-
   getAllRooms = catchAsyncError(
     async ({ query }: NextApiRequest, res: NextApiResponse) => {
-      const rooms = await this.search(RoomModel.find(), query);
+      const roomApiHelper = new RoomApiHelper(RoomModel.find(), query)
+        .search()
+        .filter();
+        
+      const rooms = await (roomApiHelper as any).query;
 
       res.status(httpStatus.OK);
       res.json({
