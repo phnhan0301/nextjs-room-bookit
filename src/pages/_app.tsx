@@ -3,8 +3,16 @@ import 'styles/globals.css';
 import { ThemeProvider } from '@material-tailwind/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { AppPage } from 'app/types';
+import { ClientLayout } from 'app/components';
 
-const App = ({ Component, pageProps }: AppProps) => {
+type MyAppProps = AppProps & {
+  Component: AppPage;
+};
+
+const App = ({ Component, pageProps }: MyAppProps) => {
+  const Layout = Component.layout || ClientLayout;
+
   return (
     <>
       <Head>
@@ -12,7 +20,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <ThemeProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
   );
