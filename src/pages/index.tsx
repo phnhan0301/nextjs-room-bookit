@@ -1,10 +1,12 @@
-import { Typography } from '@material-tailwind/react';
+import { Typography } from '@mui/material';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
   return (
     <>
-      <Typography>Home</Typography>
+      <Typography variant="h1" color="secondary">
+        Home
+      </Typography>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { BlankLayout, ClientLayout, ManagerLayout } from 'app/components';
+import { BlankLayout, ClientLayout, ManagerLayout } from 'components';
 import { NextPage } from 'next';
 
 type AppPage = NextPage & {

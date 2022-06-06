@@ -1,5 +1,5 @@
-import { Typography } from '@material-tailwind/react';
-import { BlankLayout } from 'app/components';
+import { Typography } from '@mui/material';
+import { BlankLayout } from 'components';
 import type { AppPage } from 'app/types';
 import Head from 'next/head';
 
@@ -10,7 +10,9 @@ const Home: AppPage = () => {
         <title>Login</title>
       </Head>
 
-      <Typography>Login</Typography>
+      <Typography variant="h1" color="secondary">
+        Login page
+      </Typography>
     </>
   );
 };
