@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { AppPage } from 'app/types';
 import { ClientLayout } from 'components';
 import { createEmotionCache } from 'app/helpers';
-import { lightTheme } from 'styles/themes';
+import { lightTheme } from 'assets/styles/themes';
 
 type MyAppProps = AppProps & {
   Component: AppPage;

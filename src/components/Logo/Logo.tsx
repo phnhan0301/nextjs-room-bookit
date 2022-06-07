@@ -1,9 +1,12 @@
+import { Box } from '@mui/material';
+import { LogoTag, LogoText } from './Logo.styled';
+
 const Logo = () => {
   return (
-    <div>
-      <span>Room BookIT.</span>
-      <sup>NextJs</sup>
-    </div>
+    <Box position="relative">
+      <LogoText>Room BookIT.</LogoText>
+      <LogoTag>NextJs</LogoTag>
+    </Box>
   );
 };
 
