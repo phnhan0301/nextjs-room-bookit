@@ -1,10 +1,13 @@
 import { Translate as TranslateIcon } from '@mui/icons-material';
 import { Menu, Link, Typography, Box, Divider, Grid } from '@mui/material';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SetStateAction, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export default function LangSwitcher() {
-  const { locales, locale, defaultLocale, asPath, push } = useRouter();
+  const { locales, locale, defaultLocale, pathname, asPath, query, push } =
+    useRouter();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -16,14 +19,14 @@ export default function LangSwitcher() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (locale?: string) => {
-    locale && push(asPath, asPath, { locale });
+    locale && push({ pathname, query }, asPath, { locale });
     setAnchorEl(null);
   };
 
   return (
     <>
       <Link
-        href="#"
+        component="button"
         display="inline-flex"
         alignItems="center"
         color="inherit"
@@ -39,14 +42,10 @@ export default function LangSwitcher() {
         }}
       >
         <TranslateIcon sx={{ fontSize: 16 }} />
-        <Typography
-          margin={0}
-          marginLeft={0.5}
-          padding={0}
-          fontSize={12}
-          paragraph
-        >
-          lang_title_{locale || defaultLocale}
+        <Typography margin={0} marginLeft={0.5} padding={0} fontSize={12}>
+          <FormattedMessage
+            id={`system.lang_title_${locale || defaultLocale}`}
+          />
         </Typography>
       </Link>
 
@@ -68,23 +67,40 @@ export default function LangSwitcher() {
         }}
         onClose={() => handleClose()}
       >
-        <Box paddingX={2} width={270}>
+        <Box paddingX={3} paddingY={1} width={320}>
           <Typography textAlign="right" fontWeight={500}>
-            Languages
+            <FormattedMessage
+              id="langSwitcher.languages_menu_title"
+              defaultMessage="Languages"
+            />
           </Typography>
 
           <Divider sx={{ my: 1 }} />
 
-          <Grid spacing={2} textAlign="right" container>
+          <Grid spacing={1.5} container>
             {(locales || []).map((option) => (
               <Grid xs={6} key={option} item>
                 <Link
-                  href="#"
+                  component="button"
                   color="inherit"
                   underline="none"
+                  display="inline-flex"
+                  alignItems="center"
                   onClick={() => handleClose(option)}
+                  sx={{
+                    cursor: 'pointer',
+                  }}
                 >
-                  lang_title_{option}
+                  <Image
+                    src={`/flags/${option}.svg`}
+                    width={28}
+                    height={20}
+                    alt={`system.lang_title_${option}`}
+                    style={{ minWidth: '28px' }}
+                  />
+                  <Box marginLeft={1}>
+                    <FormattedMessage id={`system.lang_title_${option}`} />
+                  </Box>
                 </Link>
               </Grid>
             ))}

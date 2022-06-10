@@ -1,8 +1,7 @@
 import { styled } from '@mui/material';
-import { pink } from '@mui/material/colors';
 
 export const LogoText = styled('span')<{ size: 'small' | 'normal' | 'large' }>(
-  ({ size }) => {
+  ({ theme: { palette }, size }) => {
     let fontSize = '1.65rem';
     switch (size) {
       case 'small':
@@ -17,7 +16,7 @@ export const LogoText = styled('span')<{ size: 'small' | 'normal' | 'large' }>(
     return {
       fontFamily: '"Lobster", cursive',
       fontSize,
-      color: pink[400],
+      color: palette.secondary.main,
     };
   },
 );

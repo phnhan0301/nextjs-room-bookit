@@ -17,8 +17,88 @@ import {
   FooterBottom,
   FooterLink,
 } from './Footer.styled';
+import { FormattedMessage, useIntl } from 'react-intl';
+
+const FooterExplore_Nav = [
+  [
+    {
+      path: '/about-us',
+      title: <FormattedMessage id="nav.about_us" defaultMessage="About Us" />,
+    },
+    {
+      path: '/privacy-policy',
+      title: (
+        <FormattedMessage
+          id="nav.privacy_policy"
+          defaultMessage="Privacy Policy"
+        />
+      ),
+    },
+    {
+      path: '/terms-and-conditions',
+      title: (
+        <FormattedMessage
+          id="nav.terms_and_conditions"
+          defaultMessage="Terms and Conditions"
+        />
+      ),
+    },
+    {
+      path: '/terms-of-use',
+      title: (
+        <FormattedMessage id="nav.terms_of_use" defaultMessage="Terms of Use" />
+      ),
+    },
+  ],
+  [
+    {
+      path: '/return-policy-ip',
+      title: (
+        <FormattedMessage
+          id="nav.return_policy_ip"
+          defaultMessage="Return Policy IP"
+        />
+      ),
+    },
+    {
+      path: '/policy-terms',
+      title: (
+        <FormattedMessage id="nav.policy_terms" defaultMessage="Policy Terms" />
+      ),
+    },
+    {
+      path: '/policy-grievance',
+      title: (
+        <FormattedMessage
+          id="nav.policy_grievance"
+          defaultMessage="Policy Grievance"
+        />
+      ),
+    },
+  ],
+];
+
+const Socials = [
+  {
+    type: 'facebook',
+    link: 'https://www.facebook.com/phnhan94/',
+  },
+  {
+    type: 'instagram',
+    link: '',
+  },
+  {
+    type: 'twitter',
+    link: '',
+  },
+  {
+    type: 'pinterest',
+    link: '',
+  },
+];
 
 const Footer = () => {
+  const { formatMessage } = useIntl();
   return (
     <FooterRoot>
       <FooterContent>
@@ -38,65 +118,49 @@ const Footer = () => {
             </Grid>
 
             <Grid md={8} spacing={4} container item>
-              <Grid md={6} item>
-                <WidgetTitle>Explore</WidgetTitle>
+              <Grid md={7} item>
+                <WidgetTitle>
+                  <FormattedMessage
+                    id="footer.explore"
+                    defaultMessage="Explore"
+                  />
+                </WidgetTitle>
 
                 <Stack direction="row" spacing={15}>
-                  <Stack component="nav" alignItems="flex-start" spacing={1}>
-                    <Link href="/about-us" passHref>
-                      <FooterLink>- About Us</FooterLink>
-                    </Link>
-
-                    <Link href="/privacy-policy" passHref>
-                      <FooterLink>- Privacy Policy</FooterLink>
-                    </Link>
-
-                    <Link href="/editorial-policy" passHref>
-                      <FooterLink>- Editorial Policy</FooterLink>
-                    </Link>
-
-                    <Link href="/policy-terms" passHref>
-                      <FooterLink>- Policy Terms</FooterLink>
-                    </Link>
-
-                    <Link href="/redressal" passHref>
-                      <FooterLink>- Redressal</FooterLink>
-                    </Link>
-
-                    <Link href="/terms-of-use" passHref>
-                      <FooterLink>- Terms of Use</FooterLink>
-                    </Link>
-                  </Stack>
-
-                  <Stack component="nav" alignItems="flex-start" spacing={1}>
-                    <Link href="/terms-and-conditions" passHref>
-                      <FooterLink>- Terms and Conditions</FooterLink>
-                    </Link>
-
-                    <Link href="/return-policy-ip" passHref>
-                      <FooterLink>- Return Policy IP</FooterLink>
-                    </Link>
-
-                    <Link href="/policy-terms" passHref>
-                      <FooterLink>- Policy Terms</FooterLink>
-                    </Link>
-
-                    <Link href="/policy-grievance" passHref>
-                      <FooterLink>- Policy Grievance</FooterLink>
-                    </Link>
-                  </Stack>
+                  {FooterExplore_Nav.map((navGroup, idx) => (
+                    <Stack
+                      key={`col_${idx}`}
+                      component="nav"
+                      alignItems="flex-start"
+                      spacing={1}
+                    >
+                      {navGroup.map((nav) => (
+                        <Link key={nav.path} href={nav.path} passHref>
+                          <FooterLink>-&nbsp;{nav.title}</FooterLink>
+                        </Link>
+                      ))}
+                    </Stack>
+                  ))}
                 </Stack>
               </Grid>
 
-              <Grid md={6} item>
+              <Grid md={5} item>
                 <Box marginBottom={3}>
-                  <WidgetTitle>Newsletter</WidgetTitle>
+                  <WidgetTitle>
+                    <FormattedMessage
+                      id="footer.newsletter"
+                      defaultMessage="Newsletter"
+                    />
+                  </WidgetTitle>
 
                   <Box component="form">
                     <TextField
                       type="email"
                       variant="standard"
-                      placeholder="Enter your email..."
+                      placeholder={formatMessage({
+                        id: 'textField.newsletter_placeholder',
+                        defaultMessage: 'Enter your email...',
+                      })}
                       InputProps={{
                         endAdornment: (
                           <IconButton type="submit">
@@ -115,52 +179,31 @@ const Footer = () => {
                 </Box>
 
                 <Box>
-                  <WidgetTitle>Follow Us</WidgetTitle>
+                  <WidgetTitle>
+                    <FormattedMessage
+                      id="footer.follow_us"
+                      defaultMessage="Follow Us"
+                    />
+                  </WidgetTitle>
 
-                  <Stack direction="row" spacing={2}>
-                    <Link href="#" passHref>
-                      <FooterLink>
-                        <Image
-                          src="/icons/facebook.svg"
-                          height={40}
-                          width={40}
-                          alt="Facebook"
-                        />
-                      </FooterLink>
-                    </Link>
-
-                    <Link href="#" passHref>
-                      <FooterLink>
-                        <Image
-                          src="/icons/instagram.svg"
-                          height={40}
-                          width={40}
-                          alt="Facebook"
-                        />
-                      </FooterLink>
-                    </Link>
-
-                    <Link href="#" passHref>
-                      <FooterLink>
-                        <Image
-                          src="/icons/twitter.svg"
-                          height={40}
-                          width={40}
-                          alt="Facebook"
-                        />
-                      </FooterLink>
-                    </Link>
-
-                    <Link href="#" passHref>
-                      <FooterLink>
-                        <Image
-                          src="/icons/pinterest.svg"
-                          height={40}
-                          width={40}
-                          alt="Facebook"
-                        />
-                      </FooterLink>
-                    </Link>
+                  <Stack direction="row" flexWrap="wrap" spacing={2}>
+                    {Socials.map((item) => (
+                      <Link
+                        key={item.type}
+                        href={item.link || '#'}
+                        target="_blank"
+                        passHref
+                      >
+                        <FooterLink>
+                          <Image
+                            src={`/icons/${item.type}.svg`}
+                            height={40}
+                            width={40}
+                            alt={item.type}
+                          />
+                        </FooterLink>
+                      </Link>
+                    ))}
                   </Stack>
                 </Box>
               </Grid>
@@ -171,7 +214,7 @@ const Footer = () => {
 
       <FooterBottom>
         <Container>
-          <Stack direction="row">
+          <Stack direction="row" justifyContent="space-between">
             <Typography component="div" fontSize={14} fontStyle="italic">
               &copy; 2022 RoomBookIT.NextJs. Code with 🥰 by &nbsp;
               <Link href="https://nhanphan.net" target="_blank" passHref>
@@ -179,9 +222,7 @@ const Footer = () => {
               </Link>
             </Typography>
 
-            <Box marginLeft="auto">
-              <LangSwitcher />
-            </Box>
+            <LangSwitcher />
           </Stack>
         </Container>
       </FooterBottom>

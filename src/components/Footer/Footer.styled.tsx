@@ -1,5 +1,5 @@
-import { Color, Link, PropTypes, styled } from '@mui/material';
-import { blueGrey, pink } from '@mui/material/colors';
+import { Link, PropTypes, styled } from '@mui/material';
+import { blueGrey } from '@mui/material/colors';
 
 export const FooterRoot = styled('footer')(() => ({
   gridArea: 'footer',

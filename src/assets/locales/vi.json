@@ -1,0 +1,26 @@
+{
+  "system.lang_title_vi": "Tiếng Việt",
+  "system.lang_title_en": "Tiếng Anh",
+
+  "langSwitcher.languages_menu_title": "Ngôn ngữ",
+
+  "nav.rooms": "Phòng",
+  "nav.services": "Dịch vụ",
+  "nav.blog": "Tin tức",
+  "nav.contact": "Liên hệ",
+  "nav.logo_register": "Đăng kí / Đăng nhập",
+  "nav.booking_new": "Đặt phòng ngay",
+  "nav.about_us": "Về chúng tôi",
+  "nav.privacy_policy": "Chính sách Bảo mật",
+  "nav.policy_terms": "Chính sách",
+  "nav.redressal": "Đổi trả",
+  "nav.terms_of_use": "Điều khoản sử dụng",
+  "nav.terms_and_conditions": "Điều khoản & Điều kiện",
+  "nav.return_policy_ip": "Đổi trả",
+  "nav.policy_grievance": "Khiếu nại về Chính sách",
+
+  "footer.explore": "Khám phá",
+  "footer.newsletter": "Bản tin",
+  "textField.newsletter_placeholder": "Địa chỉ email của bạn...",
+  "footer.follow_us": "Tìm chúng tôi trên"
+}

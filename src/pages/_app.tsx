@@ -7,6 +7,10 @@ import { AppPage } from 'app/types';
 import { ClientLayout } from 'layout';
 import { createEmotionCache } from 'app/helpers';
 import { lightTheme } from 'assets/styles/themes';
+import { IntlProvider } from 'react-intl';
+import { useRouter } from 'next/router';
+import { LangService } from 'app/services';
+import * as locales from 'assets/locales';
 
 type MyAppProps = AppProps & {
   Component: AppPage;
@@ -18,6 +22,7 @@ const MyApp = ({
   emotionCache = createEmotionCache(),
   pageProps,
 }: MyAppProps) => {
+  const { locale = 'en' } = useRouter();
   const Layout = Component.layout || ClientLayout;
 
   return (
@@ -29,15 +34,21 @@ const MyApp = ({
         <title>NextJs - Room BookIT</title>
       </Head>
 
-      <CacheProvider value={emotionCache}>
-        <ThemeProvider theme={lightTheme}>
-          <CssBaseline />
+      <IntlProvider
+        locale={locale}
+        messages={LangService.getMessages(locale as keyof typeof locales)}
+        onError={() => null}
+      >
+        <CacheProvider value={emotionCache}>
+          <ThemeProvider theme={lightTheme}>
+            <CssBaseline />
 
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </CacheProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </CacheProvider>
+      </IntlProvider>
     </>
   );
 };

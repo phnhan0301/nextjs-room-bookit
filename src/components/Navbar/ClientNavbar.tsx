@@ -14,7 +14,27 @@ import {
 import { Logo } from 'components/Logo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { FormattedMessage } from 'react-intl';
 import { ClientAppBar, NavLink } from './Navbar.styled';
+
+const ClientNavbar_Nav = [
+  {
+    path: '/rooms',
+    title: <FormattedMessage id="nav.rooms" defaultMessage="Rooms" />,
+  },
+  {
+    path: '/services',
+    title: <FormattedMessage id="nav.services" defaultMessage="Services" />,
+  },
+  {
+    path: '/blog',
+    title: <FormattedMessage id="nav.blog" defaultMessage="Blog" />,
+  },
+  {
+    path: '/contact',
+    title: <FormattedMessage id="nav.contact" defaultMessage="Contact" />,
+  },
+];
 
 const ClientNavbar = () => {
   const { pathname } = useRouter();
@@ -58,29 +78,13 @@ const ClientNavbar = () => {
                 md: 'inline-flex',
               }}
             >
-              <Link href="/rooms" passHref>
-                <NavLink activated={+pathname.startsWith('/rooms')}>
-                  Rooms
-                </NavLink>
-              </Link>
-
-              <Link href="/services" passHref>
-                <NavLink activated={+pathname.startsWith('/services')}>
-                  Services
-                </NavLink>
-              </Link>
-
-              <Link href="/blog" passHref>
-                <NavLink activated={+pathname.startsWith('/blog')}>
-                  Blog
-                </NavLink>
-              </Link>
-
-              <Link href="/contact" passHref>
-                <NavLink activated={+pathname.startsWith('/contact')}>
-                  Contact Us
-                </NavLink>
-              </Link>
+              {ClientNavbar_Nav.map((nav) => (
+                <Link key={nav.path} href={nav.path} passHref>
+                  <NavLink activated={+pathname.startsWith(nav.path)}>
+                    {nav.title}
+                  </NavLink>
+                </Link>
+              ))}
             </Stack>
 
             <Stack
@@ -91,13 +95,22 @@ const ClientNavbar = () => {
               display={{ xs: 'none', md: 'flex' }}
             >
               <Link href="/login" passHref>
-                <NavLink>Login / Register</NavLink>
+                <NavLink>
+                  <FormattedMessage
+                    id="nav.logo_register"
+                    defaultMessage="Login / Register"
+                  />
+                </NavLink>
               </Link>
 
               <Link href="/search" passHref>
                 <Button variant="contained">
                   <CalendarMonthIcon />
-                  &nbsp; Booking Now
+                  &nbsp;
+                  <FormattedMessage
+                    id="nav.booking_new"
+                    defaultMessage="Booking Now"
+                  />
                 </Button>
               </Link>
             </Stack>
