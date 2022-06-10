@@ -70,7 +70,7 @@ export default function LangSwitcher() {
         <Box paddingX={3} paddingY={1} width={320}>
           <Typography textAlign="right" fontWeight={500}>
             <FormattedMessage
-              id="langSwitcher.languages_menu_title"
+              id="langSwitcher.menu_title"
               defaultMessage="Languages"
             />
           </Typography>
