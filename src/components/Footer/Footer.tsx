@@ -5,8 +5,9 @@ import {
   Typography,
   TextField,
   Stack,
+  IconButton,
 } from '@mui/material';
-import { Logo } from 'components';
+import { LangSwitcher, Logo } from 'components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { WidgetTitle } from 'assets/styles';
@@ -91,22 +92,26 @@ const Footer = () => {
                 <Box marginBottom={3}>
                   <WidgetTitle>Newsletter</WidgetTitle>
 
-                  <TextField
-                    type="email"
-                    variant="standard"
-                    placeholder="Enter your email..."
-                    InputProps={{
-                      endAdornment: (
-                        <Image
-                          src="/icons/send.svg"
-                          height="22"
-                          width="22"
-                          alt="Send"
-                        />
-                      ),
-                    }}
-                    fullWidth
-                  />
+                  <Box component="form">
+                    <TextField
+                      type="email"
+                      variant="standard"
+                      placeholder="Enter your email..."
+                      InputProps={{
+                        endAdornment: (
+                          <IconButton type="submit">
+                            <Image
+                              src="/icons/send.svg"
+                              height="22"
+                              width="22"
+                              alt="Send"
+                            />
+                          </IconButton>
+                        ),
+                      }}
+                      fullWidth
+                    />
+                  </Box>
                 </Box>
 
                 <Box>
@@ -173,6 +178,10 @@ const Footer = () => {
                 <FooterLink color="primary">Nhan Phan</FooterLink>
               </Link>
             </Typography>
+
+            <Box marginLeft="auto">
+              <LangSwitcher />
+            </Box>
           </Stack>
         </Container>
       </FooterBottom>

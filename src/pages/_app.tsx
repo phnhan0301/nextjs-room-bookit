@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { AppPage } from 'app/types';
-import { ClientLayout } from 'components';
+import { ClientLayout } from 'layout';
 import { createEmotionCache } from 'app/helpers';
 import { lightTheme } from 'assets/styles/themes';
 

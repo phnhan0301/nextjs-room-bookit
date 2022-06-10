@@ -1,5 +1,9 @@
-import { styled } from '@mui/material';
+import { AppBar, AppBarProps, styled } from '@mui/material';
 import { Link } from '@mui/material';
+
+export const ClientAppBar = styled(AppBar)<AppBarProps>(() => ({
+  boxShadow: ' rgba(17, 17, 26, 0.1) 0px 1px 0px',
+}));
 
 export const NavLink = styled(Link)<{ activated?: number }>(
   ({ theme: { palette, typography }, activated = false }) => ({

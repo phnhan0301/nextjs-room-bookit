@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { BlankLayout } from 'components';
+import { BlankLayout } from 'layout';
 import type { AppPage } from 'app/types';
 import Head from 'next/head';
 

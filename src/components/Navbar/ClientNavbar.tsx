@@ -14,13 +14,13 @@ import {
 import { Logo } from 'components/Logo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NavLink } from './Navbar.styled';
+import { ClientAppBar, NavLink } from './Navbar.styled';
 
 const ClientNavbar = () => {
   const { pathname } = useRouter();
 
   return (
-    <AppBar component="nav" position="sticky" color="inherit">
+    <ClientAppBar component="nav" position="sticky" color="inherit">
       <Container
         sx={{
           padding: {
@@ -100,7 +100,7 @@ const ClientNavbar = () => {
           </Stack>
         </Toolbar>
       </Container>
-    </AppBar>
+    </ClientAppBar>
   );
 };
 
