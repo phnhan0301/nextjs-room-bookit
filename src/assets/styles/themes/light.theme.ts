@@ -6,6 +6,9 @@ const lightThemeOptions: ThemeOptions = {
   ...baseThemeOptions,
   palette: {
     mode: 'light',
+    text: {
+      primary: '#2c3e50',
+    },
   },
 };
 

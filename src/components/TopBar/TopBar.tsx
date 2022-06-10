@@ -4,12 +4,12 @@ import {
 } from '@mui/icons-material';
 import { Container, Link, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { TopbarRoot } from './Topbar.styled';
+import { TopBarRoot } from './TopBar.styled';
 import { LangSwitcher } from 'components/LangSwitcher';
 
-const Topbar = () => {
+const TopBar = () => {
   return (
-    <TopbarRoot>
+    <TopBarRoot>
       <Container>
         <Stack direction="row" alignItems="center" color="GrayText">
           <Typography fontSize={12} fontWeight={600}>
@@ -23,11 +23,17 @@ const Topbar = () => {
             spacing={3}
           >
             <Link
-              href="tel:+8412345678"
               color="inherit"
               underline="none"
               display="inline-flex"
               alignItems="center"
+              href="tel:+8412345678"
+              target="_blank"
+              sx={{
+                '&:hover': {
+                  color: 'primary.main',
+                },
+              }}
             >
               <PermPhoneMsgIcon sx={{ fontSize: 16 }} />
               &nbsp;+84 12345678
@@ -36,9 +42,15 @@ const Topbar = () => {
             <Link
               display="inline-flex"
               alignItems="center"
-              href="mailto:+contact.roombookit-nextjs@yopmail.com"
               color="inherit"
               underline="none"
+              href="mailto:+contact.roombookit-nextjs@yopmail.com"
+              target="_blank"
+              sx={{
+                '&:hover': {
+                  color: 'primary.main',
+                },
+              }}
             >
               <AlternateEmailIcon sx={{ fontSize: 16 }} />
               &nbsp;contact.roombookit-nextjs@yopmail.com
@@ -48,8 +60,8 @@ const Topbar = () => {
           </Stack>
         </Stack>
       </Container>
-    </TopbarRoot>
+    </TopBarRoot>
   );
 };
 
-export default Topbar;
+export default TopBar;

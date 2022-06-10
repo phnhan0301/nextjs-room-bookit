@@ -9,8 +9,10 @@ export default function LangSwitcher() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: {
+    preventDefault: () => void;
     currentTarget: SetStateAction<HTMLElement | null>;
   }) => {
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (locale?: string) => {
@@ -21,7 +23,7 @@ export default function LangSwitcher() {
   return (
     <>
       <Link
-        href="javascript:void(0)"
+        href="#"
         display="inline-flex"
         alignItems="center"
         color="inherit"
@@ -30,6 +32,11 @@ export default function LangSwitcher() {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{
+          '&:hover': {
+            color: 'primary.main',
+          },
+        }}
       >
         <TranslateIcon sx={{ fontSize: 16 }} />
         <Typography
@@ -72,7 +79,7 @@ export default function LangSwitcher() {
             {(locales || []).map((option) => (
               <Grid xs={6} key={option} item>
                 <Link
-                  href="javascript:void(0)"
+                  href="#"
                   color="inherit"
                   underline="none"
                   onClick={() => handleClose(option)}
