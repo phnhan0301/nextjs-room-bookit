@@ -1,4 +1,7 @@
-import { NotesTwoTone } from '@mui/icons-material';
+import {
+  NotesTwoTone,
+  CalendarMonth as CalendarMonthIcon,
+} from '@mui/icons-material';
 import {
   AppBar,
   Button,
@@ -55,27 +58,23 @@ const ClientNavbar = () => {
             }}
           >
             <Link href="/rooms" passHref>
-              <NavLink activated={pathname.startsWith('/rooms')}>Rooms</NavLink>
+              <NavLink activated={+pathname.startsWith('/rooms')}>
+                Rooms
+              </NavLink>
             </Link>
 
             <Link href="/services" passHref>
-              <NavLink activated={pathname.startsWith('/services')}>
+              <NavLink activated={+pathname.startsWith('/services')}>
                 Services
               </NavLink>
             </Link>
 
             <Link href="/blog" passHref>
-              <NavLink activated={pathname.startsWith('/blog')}>Blog</NavLink>
-            </Link>
-
-            <Link href="/about-us" passHref>
-              <NavLink activated={pathname.startsWith('/about-us')}>
-                About Us
-              </NavLink>
+              <NavLink activated={+pathname.startsWith('/blog')}>Blog</NavLink>
             </Link>
 
             <Link href="/contact" passHref>
-              <NavLink activated={pathname.startsWith('/contact')}>
+              <NavLink activated={+pathname.startsWith('/contact')}>
                 Contact Us
               </NavLink>
             </Link>
@@ -93,7 +92,10 @@ const ClientNavbar = () => {
             </Link>
 
             <Link href="/login" passHref>
-              <Button variant="contained">Login</Button>
+              <Button variant="contained">
+                <CalendarMonthIcon />
+                &nbsp; Booking Now
+              </Button>
             </Link>
           </Stack>
         </Toolbar>

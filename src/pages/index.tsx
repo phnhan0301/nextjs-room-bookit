@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 const Home: NextPage = () => {
   return (
     <>
-      <Box height={2000}>
+      <Box>
         <Typography variant="h1" color="secondary">
           Home
         </Typography>

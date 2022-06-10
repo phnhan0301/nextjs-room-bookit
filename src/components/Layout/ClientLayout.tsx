@@ -1,14 +1,19 @@
 import { Container } from '@mui/system';
 import { ClientProvider } from 'app/contexts';
 import { AppLayout } from 'app/types';
-import { ClientNavbar } from 'components';
+import { ClientNavbar, Footer } from 'components';
+import { ClientLayoutRoot } from './Layout.styled';
 
 const ClientLayout: AppLayout = ({ children }) => {
   return (
     <ClientProvider>
-      <ClientNavbar />
+      <ClientLayoutRoot>
+        <ClientNavbar />
 
-      <Container>{children}</Container>
+        <Container>{children}</Container>
+
+        <Footer />
+      </ClientLayoutRoot>
     </ClientProvider>
   );
 };

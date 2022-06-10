@@ -1,12 +1,26 @@
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 import { pink } from '@mui/material/colors';
-import { Box } from '@mui/material';
 
-export const LogoText = styled('span')(() => ({
-  fontFamily: '"Lobster", cursive',
-  fontSize: '1.75rem',
-  color: pink[400],
-}));
+export const LogoText = styled('span')<{ size: 'small' | 'normal' | 'large' }>(
+  ({ size }) => {
+    let fontSize = '1.65rem';
+    switch (size) {
+      case 'small':
+        fontSize = '1rem';
+        break;
+
+      case 'large':
+        fontSize = '2.5rem';
+        break;
+    }
+
+    return {
+      fontFamily: '"Lobster", cursive',
+      fontSize,
+      color: pink[400],
+    };
+  },
+);
 
 export const LogoTag = styled('sup')(({ theme: { palette, typography } }) => ({
   backgroundColor: palette.primary.light,

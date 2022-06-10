@@ -1,10 +1,14 @@
 import { Box } from '@mui/material';
 import { LogoTag, LogoText } from './Logo.styled';
 
-const Logo = () => {
+interface LogoProps {
+  size?: 'small' | 'normal' | 'large';
+}
+
+const Logo = ({ size = 'normal' }: LogoProps) => {
   return (
     <Box position="relative">
-      <LogoText>Room BookIT.</LogoText>
+      <LogoText size={size}>Room BookIT.</LogoText>
       <LogoTag>NextJs</LogoTag>
     </Box>
   );
