@@ -1,13 +1,17 @@
-import { Box } from '@mui/material';
-import { Container } from '@mui/system';
 import { ClientProvider } from 'app/contexts';
 import { AppLayout } from 'app/types';
-import { ClientNavbar, Footer, TopBar } from 'components';
+import { ClientNavbar, Footer, GitRibbon, TopBar } from 'components';
 import { ClientLayoutRoot } from './Layout.styled';
+import packageJson from '../../package.json';
 
 const ClientLayout: AppLayout = ({ children }) => {
   return (
     <ClientProvider>
+      <GitRibbon
+        type={packageJson.repository.type}
+        url={packageJson.repository.url}
+      />
+
       <ClientLayoutRoot>
         <TopBar />
         <ClientNavbar />
