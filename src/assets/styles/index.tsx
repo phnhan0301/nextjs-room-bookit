@@ -1,1 +1,1 @@
-export * from './widget.styled';
+export * from './Widget.styled';

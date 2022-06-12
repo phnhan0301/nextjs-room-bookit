@@ -4,8 +4,15 @@ import { hexToRgb } from 'app/helpers';
 const baseThemeOptions: ThemeOptions = {
   components: {
     MuiContainer: {
+      defaultProps: {
+        maxWidth: 'xl',
+      },
       styleOverrides: {
-        maxWidthLg: ({ theme: { breakpoints } }) => ({
+        maxWidthXl: ({ theme: { breakpoints } }) => ({
+          [breakpoints.up('lg')]: {
+            maxWidth: breakpoints.values.lg,
+          },
+
           [breakpoints.up('xl')]: {
             maxWidth: breakpoints.values.xl,
           },
@@ -23,17 +30,18 @@ const baseThemeOptions: ThemeOptions = {
           ...(ownerState.color !== undefined &&
             ownerState.color !== 'inherit' && {
               '&:hover': {
-                ...(ownerState.variant === 'contained' && {
-                  backgroundColor: palette[ownerState.color].main,
-
-                  boxShadow: `
+                ...(ownerState.variant &&
+                  ['contained', 'outlined'].includes(ownerState.variant) && {
+                    backgroundColor: palette[ownerState.color].main,
+                    color: '#fff',
+                    boxShadow: `
                   0 10px 15px -3px rgb(${hexToRgb(
                     palette[ownerState.color].main,
                   )?.replaceAll(',', ' ')} / 50%),
                   0 4px 6px -4px rgb(${hexToRgb(
                     palette[ownerState.color].main,
                   )?.replaceAll(',', ' ')} / 50%)`,
-                }),
+                  }),
               },
             }),
         }),

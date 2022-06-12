@@ -4,3 +4,6 @@ export * from './Footer';
 export * from './TopBar';
 export * from './LangSwitcher';
 export * from './GitRibbon';
+export * from './Slider';
+export * from './Image3dEffect';
+export * from './RoomCard';

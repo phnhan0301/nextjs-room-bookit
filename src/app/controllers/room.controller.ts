@@ -16,7 +16,10 @@ export class RoomController extends BaseController {
           : Number(query.pageSize)
         : RES_PER_PAGE;
 
-      const roomApiHelper = new RoomApiHelper(RoomModel.find(), query)
+      const roomApiHelper = new RoomApiHelper(
+        RoomModel.find().sort({ createdAt: 1 }),
+        query,
+      )
         .search()
         .filter();
 

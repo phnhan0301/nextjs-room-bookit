@@ -3,6 +3,7 @@ import { AppLayout } from 'app/types';
 import { ClientNavbar, Footer, GitRibbon, TopBar } from 'components';
 import { ClientLayoutRoot } from './Layout.styled';
 import packageJson from '../../package.json';
+import { Box } from '@mui/material';
 
 const ClientLayout: AppLayout = ({ children }) => {
   return (
@@ -16,7 +17,9 @@ const ClientLayout: AppLayout = ({ children }) => {
         <TopBar />
         <ClientNavbar />
 
-        {children}
+        <Box component="main" id="main-root">
+          {children}
+        </Box>
 
         <Footer />
       </ClientLayoutRoot>
