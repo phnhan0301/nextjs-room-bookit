@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import { ElementType } from 'react';
 
 export const ImageFeature = styled('div')<{ image: string }>(({ image }) => ({
   background: `#ddd url('${image}') no-repeat center center`,
@@ -18,3 +19,18 @@ export const CardMediaThumb = styled(Stack)(() => ({
 export const CardImageFeature = styled(Box)(() => ({
   position: 'relative',
 }));
+
+export const CardTitle = styled(Typography)<{
+  component: ElementType;
+  line?: number;
+}>(
+  ({ line }) =>
+    !!line &&
+    line > 0 && {
+      display: '-webkit-box',
+      WebkitLineClamp: line,
+      WebkitBoxOrient: 'vertical',
+      maxHeight: '100px',
+      overflow: 'hidden',
+    },
+);

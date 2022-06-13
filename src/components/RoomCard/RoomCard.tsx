@@ -16,16 +16,18 @@ import Link from 'next/link';
 import {
   CardImageFeature,
   CardMediaThumb,
+  CardTitle,
   ImageFeature,
 } from './RoomCard.styled';
 
 interface RoomCardProps {
+  _id: string;
   images: string[];
-  title: string;
-  excerpt?: string;
+  name: string;
+  description?: string;
 }
 
-const RoomCard = ({ images, title, excerpt }: RoomCardProps) => {
+const RoomCard = ({ _id, images, name, description }: RoomCardProps) => {
   const [cardMediaIndex, setCardMediaIndex] = useState(0);
 
   const changeCardMediaIndex = (event: SyntheticEvent) => {
@@ -91,17 +93,19 @@ const RoomCard = ({ images, title, excerpt }: RoomCardProps) => {
       </CardImageFeature>
 
       <CardContent>
-        <Typography variant="h5" component="h3" gutterBottom>
-          <Link href="" passHref>
-            <MuiLink underline="hover" color="inherit">
-              {title}
-            </MuiLink>
-          </Link>
-        </Typography>
+        <Link href={`/rooms/${_id}`} passHref>
+          <MuiLink underline="hover" color="inherit" title={name}>
+            <CardTitle variant="h5" component="h3" line={2} gutterBottom>
+              {name}
+            </CardTitle>
+          </MuiLink>
+        </Link>
 
-        <Typography variant="body2" color="text.secondary">
-          {excerpt}
-        </Typography>
+        {!!description && (
+          <Typography variant="body2" color="text.secondary">
+            {description}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );

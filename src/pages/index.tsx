@@ -7,18 +7,32 @@ import {
   Typography,
 } from '@mui/material';
 import { Image3dEffect, RoomCard, Slider } from 'components';
-import type { GetServerSidePropsResult, NextPage } from 'next';
+import type { InferGetServerSidePropsType } from 'next';
 import {
   HeroFullSlider,
   RoomSuggestionBox,
   SearchForm,
 } from 'assets/styles/Home.styled';
 import Link from 'next/link';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-const Home: NextPage = ({ rooms }) => {
-  const { formatMessage } = useIntl();
+export const getServerSideProps = async () => {
+  const [fetchRooms] = await Promise.all([
+    (await fetch('http:localhost:3000/api/rooms?pageSize=5')).json(),
+  ]);
 
+  const { data: rooms = [] } = fetchRooms;
+
+  return {
+    props: {
+      rooms,
+    }, // will be passed to the page component as props
+  };
+};
+
+const Home = ({
+  rooms,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
       <HeroFullSlider component="section" id="hero-slider">
@@ -99,6 +113,7 @@ const Home: NextPage = ({ rooms }) => {
           </Grid>
         </Container>
       </Box>
+
       {rooms.length > 0 && (
         <RoomSuggestionBox id="suggestion-rooms" component="section">
           <Container maxWidth="lg">
@@ -130,11 +145,10 @@ const Home: NextPage = ({ rooms }) => {
             <Grid spacing={3} marginBottom={3} container>
               <Grid md item>
                 <RoomCard
+                  {...rooms[0]}
                   images={rooms[0].images.map(
                     (item: { public_id: string; url: string }) => item.url,
                   )}
-                  title={rooms[0].name}
-                  excerpt={rooms[0].description}
                 />
               </Grid>
 
@@ -143,8 +157,9 @@ const Home: NextPage = ({ rooms }) => {
                   {[...rooms].slice(1).map((room) => (
                     <Grid key={room._id} md={6} item>
                       <RoomCard
+                        {...room}
                         images={[room.images[0].url]}
-                        title={room.name}
+                        description={null}
                       />
                     </Grid>
                   ))}
@@ -173,18 +188,37 @@ const Home: NextPage = ({ rooms }) => {
           </Container>
         </RoomSuggestionBox>
       )}
+
+      <Box paddingY={'3rem'}>
+        <Container maxWidth="lg">
+          <Box component="header" marginBottom={4}>
+            <Typography
+              component="h2"
+              variant="h4"
+              color="secondary"
+              fontWeight={700}
+              textTransform="uppercase"
+              textAlign="center"
+            >
+              <FormattedMessage
+                id="home.services-section-title"
+                defaultMessage="Our Awesome Services"
+                description="src/pages/index.tsx"
+              />
+            </Typography>
+            <Typography variant="h6" textAlign="center">
+              <FormattedMessage
+                id="home.services-section-subtitle"
+                defaultMessage="Check out our awesome services"
+                description="src/pages/index.tsx"
+                values={{}}
+              />
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
     </>
   );
-};
-
-export const getServerSideProps = async () => {
-  const fetchRoomRes = await fetch('http:localhost:3000/api/rooms?pageSize=5');
-
-  return {
-    props: {
-      rooms: (await fetchRoomRes.json()) || [],
-    }, // will be passed to the page component as props
-  };
 };
 
 export default Home;
